@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KABUM! | LEVEL UP</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* GARANTIA DE FUNDO PRETO */
+        html, body {
+            background-color: #0b0b0b !important;
+            color: white;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* HUD "TIRO" ESQUERDA */
+        .tiro-header {
+            background: #FF6B00;
+            width: 280px;
+            height: 70px;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            display: flex;
+            align-items: center;
+            padding-left: 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            box-shadow: 10px 0 30px rgba(255, 107, 0, 0.4);
+        }
+
+        /* GRID DE FUNDO ESTILO TECH */
+        .bg-pattern {
+            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* PLACEHOLDER DE FOTO QUE NÃO SOME */
+        .photo-box {
+            background: linear-gradient(145deg, #151515, #222);
+            height: 200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            border: 1px solid #333;
+            color: #FF6B00;
+        }
+
+        /* BOTÃO KABUM ESTILO NINJA */
+        .btn-ninja {
+            background: #FF6B00;
+            color: black;
+            font-weight: 900;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+        .btn-ninja:hover {
+            background: #ff8533;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-pattern">
+
+    <header class="fixed top-0 w-full h-[70px] bg-[#121212] border-b-2 border-[#FF6B00] z-[90] flex items-center">
+        <div class="tiro-header">
+            <span class="text-black font-black text-3xl italic tracking-tighter">KABUM!</span>
+        </div>
+        
+        <div class="ml-[300px] flex-1 hidden md:block">
+            <div class="flex gap-8 font-bold text-[11px] uppercase tracking-tighter text-gray-400">
+                <a href="#" class="hover:text-[#FF6B00]">Hardware</a>
+                <a href="#" class="hover:text-[#FF6B00]">Periféricos</a>
+                <a href="#" class="hover:text-[#FF6B00]">Computadores</a>
+                <a href="#" class="text-[#FF6B00]">Oferta Ninja</a>
+            </div>
+        </div>
+
+        <div class="pr-10 flex gap-4 items-center">
+            <i data-lucide="search" class="w-5 h-5 text-gray-500 cursor-pointer"></i>
+            <i data-lucide="shopping-cart" class="w-6 h-6 text-[#FF6B00] cursor-pointer"></i>
+            <div class="w-8 h-8 rounded-full bg-[#FF6B00] flex items-center justify-center text-black font-bold text-xs">L</div>
+        </div>
+    </header>
+
+    <main class="mt-[120px] max-w-[1300px] mx-auto px-6 pb-20">
+
+        <section class="w-full h-[320px] bg-gradient-to-br from-[#FF6B00] via-[#e66000] to-[#b34a00] rounded-lg mb-16 flex items-center p-12 shadow-2xl relative overflow-hidden">
+            <div class="z-10">
+                <div class="bg-black text-[#FF6B00] px-3 py-1 text-[10px] font-black inline-block mb-4 italic">OFERTA EXCLUSIVA</div>
+                <h1 class="text-6xl font-black text-black italic leading-[0.9] uppercase tracking-tighter">LEVEL UP<br>YOUR GAME.</h1>
+                <p class="text-black font-bold mt-4 opacity-90 max-w-sm italic">Hardware de elite com até 40% de desconto no PIX.</p>
+                <button class="mt-6 bg-black text-white px-10 py-3 font-black italic uppercase hover:scale-105 transition">Ver Ofertas</button>
+            </div>
+            <i data-lucide="zap" class="absolute right-10 w-64 h-64 text-black opacity-10 rotate-12"></i>
+        </section>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <div class="bg-[#121212] border border-[#222] p-4 flex flex-col justify-between h-[460px] hover:border-[#FF6B00] transition group">
+                <div>
+                    <div class="photo-box">
+                        <i data-lucide="cpu" class="w-16 h-16 opacity-40 group-hover:scale-110 transition duration-500"></i>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-[9px] text-[#FF6B00] font-black uppercase tracking-widest">Processadores</p>
+                        <h3 class="font-bold text-sm leading-tight text-gray-200 mt-1 line-clamp-2">Intel Core i9-14900K, 6.0GHz Max Turbo, 24 Núcleos, 32 Threads</h3>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <p class="text-[10px] line-through text-gray-600 italic">R$ 4.890,00</p>
+                        <p class="text-3xl font-black text-[#FF6B00] leading-none">R$ 3.999,90</p>
+                        <p class="text-[10px] font-bold text-gray-500 uppercase mt-1">À vista no PIX</p>
+                    </div>
+                    <button class="w-full btn-ninja py-3 text-sm">Comprar</button>
+                </div>
+            </div>
+
+            <div class="bg-[#121212] border border-[#222] p-4 flex flex-col justify-between h-[460px] hover:border-[#FF6B00] transition group">
+                <div>
+                    <div class="photo-box">
+                        <i data-lucide="component" class="w-16 h-16 opacity-40 group-hover:scale-110 transition"></i>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-[9px] text-[#FF6B00] font-black uppercase tracking-widest">Placas de Vídeo</p>
+                        <h3 class="font-bold text-sm leading-tight text-gray-200 mt-1">RTX 4070 Super Galax NVIDIA, 12GB GDDR6X, Dual Fan</h3>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <p class="text-3xl font-black text-[#FF6B00] leading-none">R$ 4.599,00</p>
+                        <p class="text-[10px] font-bold text-gray-500 uppercase mt-1">À vista no PIX</p>
+                    </div>
+                    <button class="w-full btn-ninja py-3 text-sm">Comprar</button>
+                </div>
+            </div>
+
+            <div class="bg-[#121212] border border-[#222] p-4 flex flex-col justify-between h-[460px] hover:border-[#FF6B00] transition group">
+                <div>
+                    <div class="photo-box">
+                        <i data-lucide="monitor" class="w-16 h-16 opacity-40 group-hover:scale-110 transition"></i>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-[9px] text-[#FF6B00] font-black uppercase tracking-widest">Monitores</p>
+                        <h3 class="font-bold text-sm leading-tight text-gray-200 mt-1">Monitor Gamer Odyssey G32 27" 165Hz 1ms FreeSync Premium</h3>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <p class="text-3xl font-black text-[#FF6B00] leading-none">R$ 1.299,00</p>
+                        <p class="text-[10px] font-bold text-gray-500 uppercase mt-1">À vista no PIX</p>
+                    </div>
+                    <button class="w-full btn-ninja py-3 text-sm">Comprar</button>
+                </div>
+            </div>
+
+            <div class="bg-[#121212] border border-[#222] p-4 flex flex-col justify-between h-[460px] hover:border-[#FF6B00] transition group">
+                <div>
+                    <div class="photo-box">
+                        <i data-lucide="mouse" class="w-16 h-16 opacity-40 group-hover:scale-110 transition"></i>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-[9px] text-[#FF6B00] font-black uppercase tracking-widest">Periféricos</p>
+                        <h3 class="font-bold text-sm leading-tight text-gray-200 mt-1">Mouse Logitech G Pro X Superlight Wireless 25K DPI</h3>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <p class="text-3xl font-black text-[#FF6B00] leading-none">R$ 749,90</p>
+                        <p class="text-[10px] font-bold text-gray-500 uppercase mt-1">À vista no PIX</p>
+                    </div>
+                    <button class="w-full btn-ninja py-3 text-sm">Comprar</button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="bg-[#0a0a0a] border-t-4 border-[#FF6B00] p-16 text-center">
+        <div class="flex flex-col items-center">
+            <h2 class="text-4xl font-black text-[#FF6B00] italic mb-2 tracking-tighter">KABUM! LEVEL UP</h2>
+            <p class="text-gray-600 text-[10px] uppercase tracking-[0.3em] font-bold">O Maior E-commerce de Tecnologia do Brasil</p>
+            
+            <div class="flex gap-8 mt-10 opacity-30">
+                <i data-lucide="facebook" class="w-5 h-5"></i>
+                <i data-lucide="instagram" class="w-5 h-5"></i>
+                <i data-lucide="twitter" class="w-5 h-5"></i>
+                <i data-lucide="youtube" class="w-5 h-5"></i>
+            </div>
+            
+            <div class="mt-12 text-[9px] font-mono text-gray-700">
+                LORENZZO_DEV_SYSTEM_V2 // 2026 // ALL RIGHTS RESERVED
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
