@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avaliação 1 – FrontEnd</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef2f7;
+      color: #2d3748;
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+      color: #fff;
+      padding: 32px 20px 24px;
+      text-align: center;
+      border-bottom: 4px solid #63b3ed;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    /* ===== NAV TABS ===== */
+    nav.tabs {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      background-color: #fff;
+      padding: 12px 20px;
+      border-bottom: 1px solid #cbd5e0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    nav.tabs button {
+      background-color: #ebf4ff;
+      color: #2b6cb0;
+      border: 2px solid #bee3f8;
+      border-radius: 999px;
+      padding: 8px 22px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    nav.tabs button:hover,
+    nav.tabs button.active {
+      background-color: #2b6cb0;
+      color: #fff;
+      border-color: #2b6cb0;
+    }
+
+    /* ===== SECTIONS ===== */
+    section.page-section {
+      display: none;
+      padding: 36px 20px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+      animation: fadeIn 0.3s ease;
+    }
+
+    section.page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a365d;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 3px solid #63b3ed;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: #718096;
+      margin-bottom: 28px;
+    }
+
+    /* ===== QUESTION BADGE ===== */
+    .q-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #2b6cb0;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== GROUPS LAYOUT ===== */
+    .groups-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    /* ===== GROUP CARD ===== */
+    .group-card {
+      background-color: #fff;
+      border: 2px solid #bee3f8;
+      border-radius: 16px;
+      padding: 24px;
+      flex: 1 1 280px;
+      max-width: 340px;
+      box-shadow: 0 4px 16px rgba(43, 108, 176, 0.10);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .group-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(43, 108, 176, 0.18);
+    }
+
+    .group-card h2 {
+      font-size: 1.25rem;
+      color: #1a365d;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .group-card h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #718096;
+      margin-bottom: 8px;
+    }
+
+    .group-card ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 16px;
+    }
+
+    .group-card ul li {
+      padding: 7px 12px;
+      margin-bottom: 5px;
+      background-color: #ebf8ff;
+      border-left: 4px solid #3182ce;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      color: #2d3748;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .group-card ul li::before {
+      content: '⚽';
+      font-size: 0.75rem;
+    }
+
+    /* ===== DETAILS / SAIBA MAIS ===== */
+    details {
+      margin-top: 12px;
+      border: 1px solid #bee3f8;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    details summary {
+      background-color: #ebf4ff;
+      color: #2b6cb0;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s;
+      user-select: none;
+    }
+
+    details summary::-webkit-details-marker { display: none; }
+
+    details[open] summary {
+      background-color: #2b6cb0;
+      color: #fff;
+    }
+
+    details p {
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #4a5568;
+      background-color: #f7fafc;
+    }
+
+    /* ===== NEXT BUTTON (Q3) ===== */
+    .btn-proximo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .btn-proximo button {
+      background: linear-gradient(135deg, #2b6cb0, #3182ce);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 36px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(49, 130, 206, 0.35);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-proximo button:hover {
+      background: linear-gradient(135deg, #1a365d, #2b6cb0);
+      box-shadow: 0 6px 20px rgba(26, 54, 93, 0.35);
+      transform: scale(1.04);
+    }
+
+    .page-indicator {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #718096;
+      margin-bottom: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== Q4 PLAYER CARDS ===== */
+    .players-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .player-card {
+      background-color: #fff;
+      border: 2px solid #bee3f8;
+      border-radius: 18px;
+      padding: 0;
+      width: 270px;
+      box-shadow: 0 4px 18px rgba(43,108,176,0.12);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .player-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(43,108,176,0.2);
+    }
+
+    .player-card-header {
+      background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .player-card-header .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid #63b3ed;
+      object-fit: cover;
+      background-color: #2b6cb0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .player-card-header .avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .player-card-header h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .player-card-header .position-badge {
+      background-color: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 999px;
+      padding: 3px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .player-card-body {
+      padding: 16px 20px;
+    }
+
+    .player-info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.85rem;
+    }
+
+    .player-info-row:last-child {
+      border-bottom: none;
+    }
+
+    .player-info-row .label {
+      color: #718096;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .player-info-row .value {
+      font-weight: 700;
+      color: #1a365d;
+    }
+
+    .rank-stars {
+      color: #f6ad55;
+      font-size: 0.9rem;
+    }
+
+    .btn-add-player {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .btn-add-player button {
+      background: linear-gradient(135deg, #276749, #38a169);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 36px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(56, 161, 105, 0.35);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-add-player button:hover {
+      background: linear-gradient(135deg, #1c4532, #276749);
+      transform: scale(1.04);
+    }
+
+    /* ===== INFO BOX ===== */
+    .info-box {
+      background-color: #ebf8ff;
+      border: 1px solid #bee3f8;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #2c5282;
+    }
+
+    .info-box h5 {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ===== CSS DEMO (Q2) ===== */
+    .css-demo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: stretch;
+      margin-top: 10px;
+    }
+
+    .css-prop-card {
+      background-color: #fff;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      flex: 1 1 200px;
+      max-width: 240px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .css-prop-card .prop-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #718096;
+      margin-bottom: 10px;
+    }
+
+    .css-prop-card .prop-demo {
+      font-size: 0.88rem;
+      color: #2d3748;
+    }
+
+    .demo-border-radius {
+      width: 60px; height: 60px;
+      background-color: #3182ce;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+    }
+
+    .demo-padding {
+      background-color: #e6fffa;
+      border: 2px dashed #38b2ac;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: #2c7a7b;
+    }
+
+    .demo-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .demo-flex span {
+      width: 20px; height: 20px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .demo-color {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .demo-color span {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .demo-border {
+      border: 3px solid #e53e3e;
+      border-radius: 8px;
+      padding: 10px;
+      color: #c53030;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .demo-bg {
+      background: linear-gradient(135deg, #faf089, #f6e05e);
+      border-radius: 8px;
+      padding: 10px;
+      color: #744210;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #1a365d;
+      color: #90cdf4;
+      font-size: 0.82rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      header h1 { font-size: 1.4rem; }
+      .group-card { max-width: 100%; }
+      .player-card { width: 100%; }
+    }
+
+    /* ===== NEW CARD ANIMATION ===== */
+    @keyframes popIn {
+      0%   { opacity: 0; transform: scale(0.8) translateY(20px); }
+      70%  { transform: scale(1.05) translateY(-4px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .player-card.new-card {
+      animation: popIn 0.4s ease forwards;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <h1>🏆 Avaliação 1 – FrontEnd</h1>
+    <p>Disciplina: FrontEnd &nbsp;|&nbsp; Data: 06/04/2026 &nbsp;|&nbsp; Estudante: –</p>
+  </header>
+
+  <!-- ===== NAV TABS ===== -->
+  <nav class="tabs">
+    <button class="active" onclick="showSection('q1')">📄 Questão 01 – HTML</button>
+    <button onclick="showSection('q2')">🎨 Questão 02 – CSS</button>
+    <button onclick="showSection('q3')">⚡ Questão 03 – JS / Próximo</button>
+    <button onclick="showSection('q4')">👤 Questão 04 – DOM</button>
+  </nav>
+
+  <!-- ================================================================
+       QUESTÃO 01 – HTML STRUCTURE
+  ================================================================ -->
+  <section id="q1" class="page-section active">
+
+    <div id="q1-header">
+      <h2 class="section-title">
+        <span class="q-badge">Q1</span>
+        Estrutura HTML – Grupos e Fatos
+      </h2>
+      <p class="section-subtitle">
+        Utilização das tags &lt;div&gt;, &lt;h1–h6&gt;, &lt;ul&gt;, &lt;li&gt; e &lt;details&gt; para organizar os grupos da Copa.
+      </p>
+    </div>
+
+    <!-- GRUPOS WRAPPER -->
+    <div class="groups-wrapper" id="grupos-container">
+
+      <!-- ====== GRUPO A ====== -->
+      <div id="grupo-a" class="group-card">
+        <h2>🅰️ Grupo A</h2>
+        <h3>Seleções</h3>
+        <ul>
+          <li>México</li>
+          <li>África do Sul</li>
+          <li>Coreia do Sul</li>
+          <li>República Tcheca</li>
+        </ul>
+        <details>
+          <summary>📖 Saiba Mais</summary>
+          <p>
+            O jogo de abertura será México x África do Sul. Confrontos entre
+            Coreia do Sul e seleções europeias já ocorreram em várias Copas,
+            com histórico equilibrado.
+          </p>
+        </details>
+      </div>
+
+      <!-- ====== GRUPO B ====== -->
+      <div id="grupo-b" class="group-card">
+        <h2>🅱️ Grupo B</h2>
+        <h3>Seleções</h3>
+        <ul>
+          <li>Canadá</li>
+          <li>Suíça</li>
+          <li>Catar</li>
+          <li>Vaga Europeia (Bósnia)</li>
+        </ul>
+        <details>
+          <summary>📖 Saiba Mais</summary>
+          <p>
+            O Canadá joga em casa, fator importante de desempenho. Catar e
+            Suíça já se enfrentaram recentemente em amistosos internacionais.
+          </p>
+        </details>
+      </div>
+
+      <!-- ====== GRUPO C ====== -->
+      <div id="grupo-c" class="group-card">
+        <h2>🅲 Grupo C</h2>
+        <h3>Seleções</h3>
+        <ul>
+          <li>Brasil</li>
+          <li>Marrocos</li>
+          <li>Haiti</li>
+          <li>Escócia</li>
+        </ul>
+        <details>
+          <summary>📖 Saiba Mais</summary>
+          <p>
+            Brasil, Marrocos e Escócia já dividiram grupo em 1998.
+            Brasil nunca perdeu para a Escócia em Copas.
+          </p>
+        </details>
+      </div>
+
+    </div><!-- /groups-wrapper -->
+  </section>
+
+  <!-- ================================================================
+       QUESTÃO 02 – CSS SHOWCASE
+  ================================================================ -->
+  <section id="q2" class="page-section">
+
+    <div id="q2-header">
+      <h2 class="section-title">
+        <span class="q-badge">Q2</span>
+        Folha de Estilos – CSS Aplicado
+      </h2>
+      <p class="section-subtitle">
+        Demonstração visual das propriedades CSS obrigatórias utilizadas na página.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h5>ℹ️ Sobre o CSS desta página</h5>
+      O CSS está aplicado <strong>inline</strong> (via tag &lt;style&gt; no &lt;head&gt;), estilizando todos os elementos com as
+      propriedades solicitadas: <code>border-radius</code>, <code>padding</code>, <code>background-color</code> / <code>background</code>,
+      <code>display: flex</code>, <code>align-items</code>, <code>justify-content</code>, <code>color</code> e <code>border</code>.
+      O cabeçalho está centralizado, o fundo usa tom suave (#eef2f7) e os cartões de grupos são o destaque visual da página.
+    </div>
+
+    <!-- CSS PROPS DEMO -->
+    <div class="css-demo-grid">
+
+      <div class="css-prop-card">
+        <div class="prop-name">border-radius</div>
+        <div class="demo-border-radius"></div>
+        <div class="prop-demo">Cantos arredondados em todos os cards e botões.</div>
+      </div>
+
+      <div class="css-prop-card">
+        <div class="prop-name">padding</div>
+        <div class="demo-padding">padding: 24px</div>
+        <div class="prop-demo" style="margin-top:8px;">Espaçamento interno aplicado em todos os cards.</div>
+      </div>
+
+      <div class="css-prop-card">
+        <div class="prop-name">background-color / background</div>
+        <div class="demo-bg">background: linear-gradient</div>
+        <div class="prop-demo" style="margin-top:8px;">Fundo suave e gradientes em cabeçalhos.</div>
+      </div>
+
+      <div class="css-prop-card">
+        <div class="prop-name">display: flex + align-items + justify-content</div>
+        <div class="demo-flex">
+          <span style="background:#3182ce;"></span>
+          <span style="background:#38a169;"></span>
+          <span style="background:#e53e3e;"></span>
+        </div>
+        <div class="prop-demo" style="margin-top:8px;">Itens centralizados com flexbox em toda a página.</div>
+      </div>
+
+      <div class="css-prop-card">
+        <div class="prop-name">color</div>
+        <div class="demo-color">
+          <span style="background:#ebf4ff; color:#2b6cb0;">Azul Primário</span>
+          <span style="background:#f0fff4; color:#276749;">Verde Secundário</span>
+          <span style="background:#fff5f5; color:#c53030;">Vermelho Destaque</span>
+        </div>
+      </div>
+
+      <div class="css-prop-card">
+        <div class="prop-name">border</div>
+        <div class="demo-border">border: 2px solid</div>
+        <div class="prop-demo" style="margin-top:8px;">Bordas aplicadas em cards, listas e detalhes.</div>
+      </div>
+
+    </div>
+
+    <!-- Re-exibe os grupos também na Q2 para mostrar CSS aplicado -->
+    <h3 style="text-align:center; margin: 36px 0 16px; color:#1a365d; font-size:1.1rem;">
+      ✅ Cards dos Grupos com CSS Aplicado:
+    </h3>
+    <div class="groups-wrapper">
+
+      <div class="group-card" style="border-color:#9ae6b4;">
+        <h2>🅰️ Grupo A</h2>
+        <h3>Seleções</h3>
+        <ul>
+          <li>México</li>
+          <li>África do Sul</li>
+          <li>Coreia do Sul</li>
+          <li>República Tcheca</li>
+        </ul>
+        <details>
+          <summary>📖 Saiba Mais</summary>
+          <p>O jogo de abertura será México x África do Sul. Confrontos entre Coreia do Sul e seleções europeias já ocorreram em várias Copas, com histórico equilibrado.</p>
+        </details>
+      </div>
+
+      <div class="group-card" style="border-color:#fbd38d;">
+        <h2>🅱️ Grupo B</h2>
+        <h3>Seleções</h3>
+        <ul>
+          <li>Canadá</li>
+          <li>Suíça</li>
+          <li>Catar</li>
+          <li>Vaga Europeia (Bósnia)</li>
+        </ul>
+        <details>
+          <summary>📖 Saiba Mais</summary>
+          <p>O Canadá joga em casa, fator importante de desempenho. Catar e Suíça já se enfrentaram recentemente em amistosos internacionais.</p>
+        </details>
+      </div>
+
+      <div class="group-card" style="border-color:#feb2b2;">
+        <h2>🅲 Grupo C</h2>
+        <h3>Seleções</h3>
+        <ul>
+          <li>Brasil</li>
+          <li>Marrocos</li>
+          <li>Haiti</li>
+          <li>Escócia</li>
+        </ul>
+        <details>
+          <summary>📖 Saiba Mais</summary>
+          <p>Brasil, Marrocos e Escócia já dividiram grupo em 1998. Brasil nunca perdeu para a Escócia em Copas.</p>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       QUESTÃO 03 – JAVASCRIPT / PRÓXIMO
+  ================================================================ -->
+  <section id="q3" class="page-section">
+
+    <div id="q3-header">
+      <h2 class="section-title">
+        <span class="q-badge">Q3</span>
+        JavaScript – Botão "Próximo"
+      </h2>
+      <p class="section-subtitle">
+        O botão alterna entre os Grupos A–C (página 1) e os Grupos D–F (página 2), mantendo estilos e organização.
+      </p>
+    </div>
+
+    <!-- BOTÃO PRÓXIMO -->
+    <div class="btn-proximo">
+      <button onclick="proximoGrupo()">
+        <span id="btn-label">Próximo ▶</span>
+      </button>
+    </div>
+
+    <div class="page-indicator" id="page-indicator">📋 Exibindo: Página 1 de 2 — Grupos A, B e C</div>
+
+    <!-- CONTAINER DOS GRUPOS (Q3) -->
+    <div class="groups-wrapper" id="q3-grupos"></div>
+
+  </section>
+
+  <!-- ================================================================
+       QUESTÃO 04 – DOM / PLAYER CARDS
+  ================================================================ -->
+  <section id="q4" class="page-section">
+
+    <div id="q4-header">
+      <h2 class="section-title">
+        <span class="q-badge">Q4</span>
+        Manipulação DOM – Adicionar Jogador
+      </h2>
+      <p class="section-subtitle">
+        Clique no botão para inserir um novo card de jogador ao lado do card existente, sem remover o anterior.
+      </p>
+    </div>
+
+    <!-- BOTÃO ADICIONAR -->
+    <div class="btn-add-player">
+      <button onclick="add()">➕ Adcionar Novo Jogador</button>
+    </div>
+
+    <!-- PLAYER CARDS CONTAINER -->
+    <div class="players-wrapper" id="players-container">
+
+      <!-- CARD ORIGINAL -->
+      <div class="player-card" id="card-original">
+        <div class="player-card-header">
+          <div class="avatar">🧑</div>
+          <h4 id="nome-original">Neymar Jr.</h4>
+          <span class="position-badge" id="posicao-original">Atacante</span>
+        </div>
+        <div class="player-card-body">
+          <div class="player-info-row">
+            <span class="label">📅 Nascimento</span>
+            <span class="value" id="nasc-original">05/02/1992</span>
+          </div>
+          <div class="player-info-row">
+            <span class="label">📏 Altura</span>
+            <span class="value" id="alt-original">1,75 m</span>
+          </div>
+          <div class="player-info-row">
+            <span class="label">🏃 Posição</span>
+            <span class="value" id="pos-original">Atacante</span>
+          </div>
+          <div class="player-info-row">
+            <span class="label">⭐ Rank</span>
+            <span class="value rank-stars" id="rank-original">★★★★★ 9.5</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /players-container -->
+
+    <div class="info-box" style="margin-top:28px;">
+      <h5>📝 Nota Técnica (Q4)</h5>
+      A função <code>add()</code> é disparada pelo evento <code>onclick</code> do botão.
+      Ela cria um novo elemento <code>div.player-card</code> com a estrutura completa do perfil de Lucas Paquetá
+      e o insere via <code>appendChild()</code> no container, sem alterar o card original.
+      O card novo recebe a classe <code>new-card</code> para a animação de entrada.
+    </div>
+
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>© 2026 – DFMF System &nbsp;|&nbsp; Avaliação FrontEnd</p>
+  </footer>
+
+  <!-- ================================================================
+       JAVASCRIPT
+  ================================================================ -->
+  <script>
+    /* =====================================================
+       NAVEGAÇÃO POR ABAS
+    ===================================================== */
+    function showSection(id) {
+      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+
+      document.getElementById(id).classList.add('active');
+
+      const btnIndex = { q1: 0, q2: 1, q3: 2, q4: 3 };
+      document.querySelectorAll('nav.tabs button')[btnIndex[id]].classList.add('active');
+
+      // inicializa Q3 ao abrir
+      if (id === 'q3' && !q3Initialized) {
+        renderQ3();
+        q3Initialized = true;
+      }
+    }
+
+    /* =====================================================
+       QUESTÃO 03 – DADOS E LÓGICA DO BOTÃO PRÓXIMO
+    ===================================================== */
+    let q3Page = 0;
+    let q3Initialized = false;
+
+    const paginaGrupos = [
+      // Página 1 – Grupos A, B, C
+      [
+        {
+          id: 'grupo-a',
+          emoji: '🅰️',
+          nome: 'Grupo A',
+          selecoes: ['México', 'África do Sul', 'Coreia do Sul', 'República Tcheca'],
+          fatos: 'O jogo de abertura será México x África do Sul. Confrontos entre Coreia do Sul e seleções europeias já ocorreram em várias Copas, com histórico equilibrado.'
+        },
+        {
+          id: 'grupo-b',
+          emoji: '🅱️',
+          nome: 'Grupo B',
+          selecoes: ['Canadá', 'Suíça', 'Catar', 'Vaga Europeia (Bósnia)'],
+          fatos: 'O Canadá joga em casa, fator importante de desempenho. Catar e Suíça já se enfrentaram recentemente em amistosos internacionais.'
+        },
+        {
+          id: 'grupo-c',
+          emoji: '🅲',
+          nome: 'Grupo C',
+          selecoes: ['Brasil', 'Marrocos', 'Haiti', 'Escócia'],
+          fatos: 'Brasil, Marrocos e Escócia já dividiram grupo em 1998. Brasil nunca perdeu para a Escócia em Copas.'
+        }
+      ],
+      // Página 2 – Grupos D, E, F
+      [
+        {
+          id: 'grupo-d',
+          emoji: '🅳',
+          nome: 'Grupo D',
+          selecoes: ['Estados Unidos', 'Paraguai', 'Austrália', 'Turquia'],
+          fatos: 'Os EUA jogam em casa, vantagem histórica em Copas. Austrália enfrenta frequentemente seleções sul-americanas em torneios.'
+        },
+        {
+          id: 'grupo-e',
+          emoji: '🅴',
+          nome: 'Grupo E',
+          selecoes: ['Alemanha', 'Equador', 'Costa do Marfim', 'Curaçao'],
+          fatos: 'Alemanha costuma dominar fases de grupos. Equador e Costa do Marfim têm estilos físicos semelhantes.'
+        },
+        {
+          id: 'grupo-f',
+          emoji: '🅵',
+          nome: 'Grupo F',
+          selecoes: ['Holanda', 'Japão', 'Tunísia', 'Suécia'],
+          fatos: 'Brasil, Marrocos e Escócia já dividiram grupo em 1998. Brasil nunca perdeu para a Escócia em Copas.'
+        }
+      ]
+    ];
+
+    function renderQ3() {
+      const container = document.getElementById('q3-grupos');
+      const grupos = paginaGrupos[q3Page];
+      container.innerHTML = '';
+
+      grupos.forEach(g => {
+        const liItems = g.selecoes.map(s => `<li>${s}</li>`).join('');
+        const card = document.createElement('div');
+        card.id = g.id;
+        card.className = 'group-card';
+        card.innerHTML = `
+          <h2>${g.emoji} ${g.nome}</h2>
+          <h3>Seleções</h3>
+          <ul>${liItems}</ul>
+          <details>
+            <summary>📖 Saiba Mais</summary>
+            <p>${g.fatos}</p>
+          </details>
+        `;
+        container.appendChild(card);
+      });
+
+      // Atualiza indicador e botão
+      const indicator = document.getElementById('page-indicator');
+      const btnLabel  = document.getElementById('btn-label');
+
+      if (q3Page === 0) {
+        indicator.textContent = '📋 Exibindo: Página 1 de 2 — Grupos A, B e C';
+        btnLabel.textContent  = 'Próximo ▶';
+      } else {
+        indicator.textContent = '📋 Exibindo: Página 2 de 2 — Grupos D, E e F';
+        btnLabel.textContent  = '◀ Anterior';
+      }
+    }
+
+    function proximoGrupo() {
+      q3Page = q3Page === 0 ? 1 : 0;
+      renderQ3();
+    }
+
+    /* =====================================================
+       QUESTÃO 04 – FUNÇÃO add() – ADICIONAR JOGADOR
+    ===================================================== */
+    let playerAdded = false;
+
+    function add() {
+      const container = document.getElementById('players-container');
+
+      if (playerAdded) {
+        alert('⚠️ O jogador Lucas Paquetá já foi adicionado!');
+        return;
+      }
+
+      // Cria o novo card
+      const card = document.createElement('div');
+      card.className = 'player-card new-card';
+      card.id = 'card-paqueta';
+
+      card.innerHTML = `
+        <div class="player-card-header">
+          <div class="avatar">
+            <img src="img/Lucas_Paqueta.png" alt="Lucas Paquetá"
+              onerror="this.parentElement.innerHTML='⚽';" />
+          </div>
+          <h4 id="nome-paqueta">Lucas Tolentino Coelho de Lima</h4>
+          <span class="position-badge" id="posicao-paqueta">Meio-campista</span>
+        </div>
+        <div class="player-card-body">
+          <div class="player-info-row">
+            <span class="label">📅 Nascimento</span>
+            <span class="value" id="nasc-paqueta">27/08/1997 (28 anos)</span>
+          </div>
+          <div class="player-info-row">
+            <span class="label">📏 Altura</span>
+            <span class="value" id="alt-paqueta">1,80 m</span>
+          </div>
+          <div class="player-info-row">
+            <span class="label">🏃 Posição</span>
+            <span class="value" id="pos-paqueta">Meio-campista</span>
+          </div>
+          <div class="player-info-row">
+            <span class="label">⭐ Rank</span>
+            <span class="value rank-stars" id="rank-paqueta">★★★★☆ 8.8</span>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(card);
+      playerAdded = true;
+
+      // Feedback no botão
+      const btn = document.querySelector('.btn-add-player button');
+      btn.textContent = '✅ Jogador Adicionado!';
+      btn.style.background = 'linear-gradient(135deg, #2c5282, #2b6cb0)';
+      btn.disabled = true;
+      btn.style.cursor = 'not-allowed';
+    }
+  </script>
+
+</body>
+</html>
